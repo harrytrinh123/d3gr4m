@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_22_152746) do
+ActiveRecord::Schema.define(version: 2019_04_23_051432) do
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -23,6 +23,9 @@ ActiveRecord::Schema.define(version: 2019_04_22_152746) do
     t.string "name"
     t.string "website"
     t.text "bio"
+    t.string "provider"
+    t.string "uid"
+    t.string "image"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
