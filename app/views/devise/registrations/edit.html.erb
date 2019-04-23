@@ -13,7 +13,7 @@
 
       <div class="row username-img">
         <div class="col-sm-3 text-right">
-          <%= image_tag 'user.png', width: '38', height: '38', class: "round-img" %>
+          <%= image_tag avatar_url(@user), width: '40', height: '40', class: "round-img" %>
         </div>
         <div class="col-sm-9">
           <p><%= @user.name %></p>
