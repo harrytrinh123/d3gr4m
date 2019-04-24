@@ -7,4 +7,8 @@ Rails.application.routes.draw do
 	path_names: {sign_in: 'login', sign_out: 'logout', edit: 'profile', sign_up: 'registration'}
   
   resources :users, only: [:show]
+
+  resources :posts, only: [:index, :show, :create] do
+  	resources :photos, only: [:create]
+  end
 end
