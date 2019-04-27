@@ -1,55 +1,62 @@
 class PostsController < ApplicationController
-	before_action :authenticate_user!
-	before_action :find_post, only: [:show, :destroy]
+  before_action :authenticate_user!
+  before_action :find_post, only: [:show, :destroy]
 
-	def index
-		@posts = Post.all.limit(10).includes(:photos, :user).order('created_at desc')
-		@post = Post.new
-	end
+  def index
+    @posts = Post.all.limit(10).includes(:photos, :user, :likes).
+      order("created_at desc")
+    @post = Post.new
+  end
 
-	def create
-		@post = current_user.posts.build(post_params)
-		if @post.save
-			if params[:images]
-				params[:images].each do |img|
-					@post.photos.create(image: img)
-				end
-			end
-			redirect_to posts_path
-			flash[:notice] = "Saved ..."
-		else
-			flash[:alert] = "Some went wrong ..."
-			redirect_to posts_path
-		end
-	end
+  def create
+    @post = current_user.posts.build(post_params)
+    if @post.save
+      if params[:images]
+        params[:images].each do |img|
+          @post.photos.create(image: img)
+        end
+      end
 
-	def show
-		@photos = @post.photos
-	end
+      redirect_to posts_path
+      flash[:notice] = "Saved ..."
+    else
+      flash[:alert] = "Something went wrong ..."
+      redirect_to posts_path
+    end
+  end
 
-	def destroy
-		if @post.user == current_user
-			if @post.destroy
-				flash[:notice] = "Post deleted!"
-			else
-				flash[:alert] = "Something went wrong!"
-			end
-		else
-			flash[:alert] = "You don't have permission to do that!"
-		end
-		redirect_to root_path
-	end
+  def show
+    @photos = @post.photos
+    @likes = @post.likes.includes(:user)
+    @comment = Comment.new
+    @is_liked = @post.is_liked(current_user)
+    @is_bookmarked = @post.is_bookmarked(current_user)
+  end
 
-	private
+  def destroy
+    if @post.user == current_user
+      if @post.destroy
+        flash[:notice] = "Post deleted!"
+      else
+        flash[:alert] = "Something went wrong ..."
+      end
+    else
+      flash[:notice] = "You don't have permission to do that!"
+    end
+    redirect_to root_path
+  end
 
-	def find_post
-		@post = Post.find_by id: params[:id]
-		return if @post
-		flash[:danger] = "Post not exist"
-		redirect_to root_path
-	end
+  private
 
-	def post_params
-		params.require(:post).permit :content
-	end
+  def find_post
+    @post = Post.find_by id: params[:id]
+
+    return if @post
+    flash[:danger] = "Post not exist!"
+    redirect_to root_path
+  end
+
+  def post_params
+    params.require(:post).permit :content
+  end
 end

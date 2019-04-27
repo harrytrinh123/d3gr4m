@@ -355,7 +355,7 @@ footer .nav-item {
 
 .loved {
 	@extend .love;
-	background-position: -182px -336px;
+	background-position: -200px -330px;
 }
 
 .comment {
@@ -366,7 +366,12 @@ footer .nav-item {
 
 .bookmark {
 	@extend .love;
-	background-position: -150px -353px;
+	background-position: -150px -355px;
+}
+
+.bookmarked {
+	@extend .love;
+	background-position: -353px -273px;
 }
 
 .comment-list {
@@ -382,4 +387,74 @@ footer .nav-item {
 .delete-post-icon {
 	color: #262626;
 	font-size: 18px;
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.input_upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.delete-comment {
+	width: 11px;
+	height: 11px;
+	background-position: -216px -112px;
+	float: right;
+	margin: 5px 0 0 10px;
+}
+
+.profile-tab {
+  margin-top: 60px;
+
+  .nav-tabs {
+    border: 0;
+    border-top: 1px solid #ddd;
+
+    .nav-item {
+      border-radius: 0;
+      border: 0;
+      border-top: 1px solid transparent;
+      margin-top: -1px;
+      padding: 10px 0;
+      background: transparent;
+      font-weight: bold;
+      color: #999;
+    }
+
+    .nav-item.active {
+      color: #262626;
+      border-top: 1px solid #262626;
+    }
+  }
+
+  .post-stat {
+    position: absolute;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    width: calc(100% - 30px);
+    height: calc(100% - 30px);
+    top: 0;
+    opacity: 0;
+  }
+
+  .col-4:hover .post-stat {
+    background-color: rgba(0,0,0,.3);
+    opacity: 1;
+  }
+
+  .image-preview {
+    margin-bottom: 30px;
+  }
 }
