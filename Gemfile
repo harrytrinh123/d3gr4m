@@ -13,6 +13,7 @@ gem 'carrierwave', '~> 1.3', '>= 1.3.1'
 gem 'cloudinary'
 gem 'figaro'
 gem 'dropzonejs-rails'
+gem 'will_paginate-bootstrap4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
